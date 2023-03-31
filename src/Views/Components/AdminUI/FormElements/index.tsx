@@ -125,34 +125,31 @@ export function SelectDropdownField({
     label,
 }: SelectDropdownFieldProps) {
     return (
-        <>
-            <label htmlFor={name} className={styles.fieldLabel}>
-                <span>{label}</span>
-                <Controller
-                    name={name}
-                    render={({
-                        field: {onChange, onBlur, value, name, ref},
-                        fieldState: {invalid, isTouched, isDirty, error},
-                        formState,
-                    }) => (
-                        <ReactSelect
-                            ref={ref}
-                            name={name}
-                            value={options?.find((option) => option.value === value)}
-                            options={options}
-                            onChange={(selectedOption) => onChange(selectedOption.value)}
-                            isClearable={isClearable}
-                            isSearchable={isSearchable}
-                            placeholder={isLoading ? __('Options are loading...') : placeholder ?? ''}
-                            components={{
-                                IndicatorSeparator: () => null,
-                            }}
-                            styles={styleConfig}
-                        />
-                    )}
-                />
-            </label>
-        </>
+        <FieldLabel label={label}>
+            <Controller
+                name={name}
+                render={({
+                    field: {onChange, onBlur, value, name, ref},
+                    fieldState: {invalid, isTouched, isDirty, error},
+                    formState,
+                }) => (
+                    <ReactSelect
+                        ref={ref}
+                        name={name}
+                        value={options?.find((option) => option.value === value)}
+                        options={options}
+                        onChange={(selectedOption) => onChange(selectedOption.value)}
+                        isClearable={isClearable}
+                        isSearchable={isSearchable}
+                        placeholder={isLoading ? __('Options are loading...') : placeholder ?? ''}
+                        components={{
+                            IndicatorSeparator: () => null,
+                        }}
+                        styles={styleConfig}
+                    />
+                )}
+            />
+        </FieldLabel>
     );
 }
 
@@ -171,8 +168,7 @@ export type DisabledTextFieldProps = {
 
 export function DisabledTextField({name, type, placeholder, label, value}: DisabledTextFieldProps) {
     return (
-        <label>
-            {label && <span className={styles.fieldLabel}>{label}</span>}
+        <FieldLabel label={label}>
             <div className={cx(styles.textFieldContainer)}>
                 <input
                     className={styles.disabled}
@@ -183,6 +179,6 @@ export function DisabledTextField({name, type, placeholder, label, value}: Disab
                     placeholder={placeholder}
                 />
             </div>
-        </label>
+        </FieldLabel>
     );
 }
