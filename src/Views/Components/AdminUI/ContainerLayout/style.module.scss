@@ -32,6 +32,8 @@
     opacity: 1;
     animation: appear 182ms ease-in 0s;
     font-family: 'Open Sans', sans-serif;
+    padding: var(--givewp-spacing-4);
+
 
     &[aria-hidden='true'] {
         display: none;

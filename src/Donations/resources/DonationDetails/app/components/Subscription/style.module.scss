@@ -1,0 +1,47 @@
+.subscriptionContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.35rem;
+
+    >span {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: var(--givewp-spacing-2);
+        font-size: 0.75rem;
+    }
+
+    > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        span {
+            display: block;
+            margin-bottom: .5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.5;
+            letter-spacing: normal;
+            text-align: left;
+            color: var(--givewp-grey-900);
+        }
+
+        span:last-child {
+            font-weight: normal;
+            font-size: .925rem;
+        }
+
+
+        > div:last-child {
+            span:last-child {
+                text-align:right
+            }
+        }
+    }
+}
+
+
