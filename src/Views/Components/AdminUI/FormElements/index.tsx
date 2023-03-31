@@ -1,9 +1,9 @@
 import React from 'react';
 
+import cx from 'classnames';
 import ReactSelect from 'react-select';
 import {Controller} from 'react-hook-form';
 import {__} from '@wordpress/i18n';
-import cx from 'classnames';
 
 import CurrencyInput from 'react-currency-input-field';
 
@@ -20,51 +20,42 @@ export type FormElementProps = {
     id: string;
 };
 
-const Form: React.FC<HTMLFormElement | FormElementProps> = ({children, id, onSubmit}) => (
+export const Form: React.FC<HTMLFormElement | FormElementProps> = ({children, id, onSubmit}) => (
     <form className={styles.form} id={id} onSubmit={onSubmit}>
         {children}
     </form>
 );
-
-export {Form};
 
 /**
  *
  * @unreleased
  */
 
-export type TextInputFieldProps = {
+export type InputFieldProps = {
     name: string;
     type: string;
     placeholder: string;
     label: string;
 };
 
-const TextInputField = React.forwardRef<HTMLInputElement, TextInputFieldProps>(
+export const TextInputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
     ({name, type, placeholder, label, ...props}, ref) => {
         return (
-            <label>
-                {label && <span className={styles.fieldLabel}>{label}</span>}
+            <FieldLabel label={label}>
                 <div className={cx(styles.textFieldContainer)}>
                     <input ref={ref} name={name} type={type} placeholder={placeholder} {...props} />
                 </div>
-            </label>
+            </FieldLabel>
         );
     }
 );
-
-export {TextInputField};
 
 /**
  *
  * @unreleased
  */
 
-export type CurrencyInputFieldProps = {
-    name: string;
-    type: string;
-    placeholder: string;
-    label: string;
+export type CurrencyInputFieldProps = InputFieldProps & {
     currency: string;
     defaultValue: number;
     handleCurrencyChange: () => void;
@@ -72,8 +63,7 @@ export type CurrencyInputFieldProps = {
 
 export function CurrencyInputField({defaultValue, placeholder, handleCurrencyChange, currency, label}) {
     return (
-        <label>
-            {label && <span className={styles.fieldLabel}>{label}</span>}
+        <FieldLabel label={label}>
             <div className={cx(styles.textFieldContainer, styles.currencyField, {})}>
                 <CurrencyInput
                     name={'currency-input-field'}
@@ -85,13 +75,25 @@ export function CurrencyInputField({defaultValue, placeholder, handleCurrencyCha
                         locale: navigator.language,
                         currency: currency,
                     }}
-                    decimalSeparator={'.'}
-                    groupSeparator={','}
                     decimalScale={2}
                     placeholder={placeholder}
                     defaultValue={defaultValue}
                 />
             </div>
+        </FieldLabel>
+    );
+}
+
+export type LabelProps = {
+    label: string;
+    children: React.ReactNode;
+};
+
+export function FieldLabel({label, children}) {
+    return (
+        <label>
+            {label && <span className={styles.fieldLabel}>{label}</span>}
+            {children}
         </label>
     );
 }
