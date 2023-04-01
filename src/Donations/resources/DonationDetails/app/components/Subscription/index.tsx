@@ -17,31 +17,31 @@ export default function Subscription() {
                 <HeaderLink href={'/'}>{__('View subscription details', 'give')}</HeaderLink>
             </SectionHeader>
 
-            {subscriptionId ? <SectionContainer /> : <EmptyState message={__('No subscriptions yet', 'give')} />}
+            <FieldsetContainer>
+                {subscriptionId ? <SectionContainer /> : <EmptyState message={__('No subscriptions yet', 'give')} />}{' '}
+            </FieldsetContainer>
         </section>
     );
 }
 
 export function SectionContainer() {
     return (
-        <FieldsetContainer>
-            <div className={styles.subscriptionContainer}>
+        <div className={styles.subscriptionContainer}>
+            <div>
                 <div>
-                    <div>
-                        <span>{__('Subscription ID', 'give')}</span>
-                        <span>{subscriptionId}</span>
-                    </div>
-                    <div>
-                        <span>{__('Billing Cycle', 'give')}</span>
-                        <span>{__('weekly', 'give')}</span>
-                    </div>
+                    <span>{__('Subscription ID', 'give')}</span>
+                    <span>{subscriptionId}</span>
                 </div>
-
-                <span>
-                    <CalendarIcon />
-                    {sprintf(__('Next renewal %s', 'give'), 'June 15th, 2022')}
-                </span>
+                <div>
+                    <span>{__('Billing Cycle', 'give')}</span>
+                    <span>{__('weekly', 'give')}</span>
+                </div>
             </div>
-        </FieldsetContainer>
+
+            <span>
+                <CalendarIcon />
+                {sprintf(__('Next renewal %s', 'give'), 'June 15th, 2022')}
+            </span>
+        </div>
     );
 }
