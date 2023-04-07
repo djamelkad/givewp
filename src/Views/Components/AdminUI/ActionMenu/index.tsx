@@ -11,6 +11,7 @@ import {ActionConfig} from '../../../../Donations/resources/DonationDetails/app/
  * @unreleased
  */
 
+const {id} = window.GiveDonations.donationDetails;
 export type ActionMenuProps = {
     actionConfig: Array<ActionConfig>;
 };
@@ -73,14 +74,15 @@ export type ActionDialogProps = ActionConfig & {
 };
 
 export function ActionDialog({action, title, icon, description, confirmContext, confirm, cancel}: ActionDialogProps) {
-    const variant = action === 'delete' ? 'danger' : 'primary';
+    const isDeleting = action === 'delete';
+    const variant = isDeleting ? 'danger' : 'primary';
 
     return (
         <div className={styles.actionDialog}>
             <div>{icon}</div>
 
             <div className={styles.actionDialogContainer}>
-                <p className={styles.title}>{title}</p>
+                <p className={styles.title}>{`${title}  #${isDeleting && id}`}</p>
                 <p className={styles.description}>{description}</p>
                 <div className={styles.actionDialogActions}>
                     <Button onClick={confirm} variant={variant} size={'small'} type={'button'} disabled={false}>
