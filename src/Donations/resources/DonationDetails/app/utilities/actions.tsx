@@ -1,6 +1,6 @@
 import {__} from '@wordpress/i18n';
 import AlertIcon from '@givewp/components/AdminUI/Icons/AlertIcon';
-import WarningIcon from '@givewp/components/AdminUI/Icons/WarningIcon';
+import DeleteIcon from '@givewp/components/AdminUI/Icons/DeleteIcon';
 
 /**
  *
@@ -41,7 +41,7 @@ export const actionConfig: Array<ActionConfig> = [
         action: 'delete',
         title: __('Delete donation', 'give'),
         confirmContext: __('Yes, delete', 'give'),
-        description: __('Do you want to delete this donation?', 'give'),
-        icon: <WarningIcon />,
+        description: __('Do you want to remove this donation?', 'give'),
+        icon: <DeleteIcon />,
     },
 ];
