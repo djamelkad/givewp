@@ -53,7 +53,11 @@ export default function FormPage({
         resolver: joiResolver(validationSchema),
     });
 
-    const {handleSubmit, getValues, formState: {errors, isDirty, dirtyFields}} = methods;
+    const {
+        handleSubmit,
+        getValues,
+        formState: {errors, isDirty, dirtyFields},
+    } = methods;
 
     const handleSubmitRequest = async (formFieldValues) => {
         try {
@@ -79,7 +83,6 @@ export default function FormPage({
             <FormNavigation
                 pageInformation={pageInformation}
                 onSubmit={handleSubmit(handleSubmitRequest)}
-                actionConfig={actionConfig}
                 isDirty={isDirty}
             />
             <Toast

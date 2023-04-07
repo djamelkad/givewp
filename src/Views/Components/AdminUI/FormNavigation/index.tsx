@@ -18,54 +18,103 @@ import styles from './style.module.scss';
 export type FormNavigationProps = {
     onSubmit: () => void;
     pageInformation: PageInformation;
-    actionConfig: Array<{title: string; action: any}>;
     isDirty: boolean;
 };
 
-export default function FormNavigation({onSubmit, actionConfig, isDirty, pageInformation}: FormNavigationProps) {
-    const [toggleActions, setToggleActions] = useState<boolean>(false);
+export default function FormNavigation({onSubmit, isDirty, pageInformation}: FormNavigationProps) {
+    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
     const {description, id, title} = pageInformation;
 
-    const toggleMoreActions = () => {
-        setToggleActions(!toggleActions);
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
     };
 
     return (
         <header className={styles.formPageNavigation}>
-            <div className={styles.wrapper}>
-                <button className={styles.container} onClick={() => window.history.back()}>
-                    <LeftArrowIcon />
-                    <h1>{title}</h1>
-                </button>
-            </div>
-
+            <TitleNavigation title={title} />
             <div className={styles.actions}>
-                <div className={styles.pageDetails}>
-                    <span>{description}:</span>
-                    <span>#{id}</span>
-                </div>
-
-                <div className={styles.relativeContainer}>
-                    <div>
-                        <Button
-                            onClick={toggleMoreActions}
-                            variant={'secondary'}
-                            size={'small'}
-                            type={'button'}
-                            disabled={false}
-                        >
-                            {__('More Actions', 'give')}
-                            <DownArrowIcon color={'#2271b1'} />
-                        </Button>
-                        {toggleActions && <ActionMenu menuConfig={actionConfig} toggle={toggleMoreActions} />}
-                    </div>
-
-                    <Button onClick={onSubmit} variant={'primary'} size={'small'} type={'submit'} disabled={!isDirty}>
-                        {__('Save Changes', 'give')}
-                    </Button>
-                </div>
+                <PageDescription description={description} id={id} />
+                <MoreActions isOpen={isMenuOpen} openMenu={toggleMenu} />
+                <SaveFormChanges onSubmit={onSubmit} isDirty={isDirty} />
             </div>
         </header>
+    );
+}
+
+/**
+ *
+ * @unreleased
+ */
+export type TitleNavigationProps = {
+    title: string;
+};
+
+function TitleNavigation({title}: TitleNavigationProps) {
+    return (
+        <div className={styles.wrapper}>
+            <button className={styles.container} onClick={() => window.history.back()}>
+                <LeftArrowIcon />
+                <h1>{title}</h1>
+            </button>
+        </div>
+    );
+}
+
+/**
+ *
+ * @unreleased
+ */
+export type PageDescriptionProps = {
+    description: string;
+    id: number;
+};
+
+export function PageDescription({description, id}: PageDescriptionProps) {
+    return (
+        <div className={styles.pageDetails}>
+            <span>{description}:</span>
+            <span>#{id}</span>
+        </div>
+    );
+}
+
+/**
+ *
+ * @unreleased
+ */
+export type MoreActionsProps = {
+    isOpen: boolean;
+    openMenu: () => void;
+};
+
+function MoreActions({openMenu, isOpen}: MoreActionsProps) {
+    return (
+        <div>
+            <Button onClick={openMenu} variant={'secondary'} size={'small'} type={'button'} disabled={false}>
+                {__('More Actions', 'give')}
+                <DownArrowIcon color={'#2271b1'} />
+            </Button>
+            {isOpen && <ActionMenu />}
+        </div>
+    );
+}
+
+/**
+ *
+ * @unreleased
+ */
+export type SaveFormChangesProps = {
+    onSubmit: () => void;
+    isDirty: boolean;
+};
+
+export function SaveFormChanges({isDirty, onSubmit}: SaveFormChangesProps) {
+    return (
+        <div className={styles.relativeContainer}>
+            <Button onClick={onSubmit} variant={'primary'} size={'small'} type={'submit'} disabled={!isDirty}>
+                {__('Save Changes', 'give')}
+            </Button>
+        </div>
     );
 }

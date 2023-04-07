@@ -12,10 +12,13 @@ export type ModalDialogProps = {
     children: React.ReactNode;
     handleClose(): void;
     onClose: () => void;
+    variant?: undefined | null | 'normal' | 'actionDialog';
 };
 
-export default function ModalDialog({open, children, title, onClose, handleClose}: ModalDialogProps) {
+export default function ModalDialog({open, children, title, onClose, handleClose, variant}: ModalDialogProps) {
     const dialog = useRef() as {current: A11yDialogInstance};
+
+    const isActionModal = variant === 'actionDialog';
 
     useEffect(() => {
         if (!dialog.current) {
@@ -48,18 +51,29 @@ export default function ModalDialog({open, children, title, onClose, handleClose
             classNames={{
                 container: styles.container,
                 overlay: styles.overlay,
-                dialog: cx(styles.dialog, {}),
+                dialog: cx(styles.dialog, {
+                    [styles['actionDialog']]: isActionModal,
+                }),
                 closeButton: 'hidden',
                 title: 'hidden',
             }}
         >
-            <div className={styles.dialogTitle}>
-                <p aria-labelledby={title}>{title}</p>
-                <button type="button" onClick={() => handleClose()}>
-                    <ExitIcon />
-                </button>
+            {!isActionModal && (
+                <div className={styles.dialogTitle}>
+                    <p aria-labelledby={title}>{title}</p>
+                    <button type="button" onClick={() => handleClose()}>
+                        <ExitIcon />
+                    </button>
+                </div>
+            )}
+
+            <div
+                className={cx(styles.modalContentContainer, {
+                    [styles['actionModalContentContainer']]: isActionModal,
+                })}
+            >
+                {open ? children : null}
             </div>
-            <div className={styles.modalContentContainer}>{open ? children : null}</div>
         </A11yDialog>
     );
 }

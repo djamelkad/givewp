@@ -48,7 +48,6 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: var(--givewp-spacing-6);
         padding: 0 var(--givewp-spacing-6);
         border-radius: 8px 8px 0 0;
         background-color: var(--givewp-grey-25);
@@ -76,39 +75,32 @@
         }
     }
 
-
     .modalContentContainer {
         display: flex;
         justify-content: center;
-        margin-bottom: var(--givewp-spacing-11);
-        padding: 0 var(--givewp-spacing-6);
+        gap: var(--givewp-spacing-3);
+        padding: var(--givewp-spacing-6) var(--givewp-spacing-6) var(--givewp-spacing-8) var(--givewp-spacing-6);
 
         div:first-child {
             flex: 1;
             display: flex;
             flex-direction: column;
-        }
 
-        button {
-            margin-top: var(--givewp-spacing-11);
-            height: 3.5rem;
-        }
-
-        span:last-child {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: row;
-            gap: var(--givewp-spacing-3);
-            padding: var(--givewp-spacing-3) var(--givewp-spacing-4);
-            margin-top: var(--givewp-spacing-2);
-            border-radius: var(--givewp-rounded-4);
-            background-color: var(--givewp-blue-25);
-            color: var(--wp-blue-blue-50);
-            font-size: 0.875rem;
-
+            label {
+                margin-bottom: var(--givewp-spacing-11);
+            }
         }
     }
+
+    .actionModalContentContainer {
+        padding: var(--givewp-spacing-4);
+    }
+}
+
+.actionDialog {
+    position: fixed;
+    top: 10%;
+    right: 20%;
 }
 
 
@@ -120,6 +112,6 @@
 
 @media (max-width: 750px) {
     .dialog, {
-        max-width: 100vw;
+        width: 100vw;
     }
 }

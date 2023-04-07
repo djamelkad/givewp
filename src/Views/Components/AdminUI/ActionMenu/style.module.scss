@@ -21,3 +21,51 @@
 
     }
 }
+
+.actionDialog {
+    display: flex;
+    flex-direction: row !important;
+    gap: var(--givewp-spacing-2);
+    border: 1px solid transparent;
+}
+
+.actionDialogContainer {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--givewp-spacing-2);
+    min-height: 100%;
+
+    > .title {
+        font-weight: bold;
+    }
+
+    > p {
+        margin: 0;
+        padding: 0;
+        font-size: .875rem;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.43;
+        letter-spacing: normal;
+        text-align: left;
+        padding-right: 4rem;
+        color: var(--givewp-grey-700);
+    }
+
+    > .description {
+        margin: 0 0 var(--givewp-spacing-4) 0;
+    }
+}
+
+.actionDialogActions {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: var(--givewp-spacing-1);
+
+    > button {
+        height: 36px;
+        width: 100%;
+    }
+}
