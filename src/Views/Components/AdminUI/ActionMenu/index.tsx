@@ -1,66 +1,21 @@
 import {Fragment, useState} from 'react';
-import styles from './style.module.scss';
-import ModalDialog from '@givewp/components/AdminUI/ModalDialog';
-
-/**
- *
- * @unreleased
- */
 import {__} from '@wordpress/i18n';
-import AlertIcon from '@givewp/components/AdminUI/Icons/AlertIcon';
-import WarningIcon from '@givewp/components/AdminUI/Icons/WarningIcon';
 import Button from '@givewp/components/AdminUI/Button';
 
+import styles from './style.module.scss';
+import ModalDialog from '@givewp/components/AdminUI/ModalDialog';
+import {ActionConfig} from '../../../../Donations/resources/DonationDetails/app/utilities/actions';
+
 /**
  *
  * @unreleased
  */
 
-export type ActionProps = {
-    action: 'refund' | 'download' | 'resend' | 'delete';
+export type ActionMenuProps = {
+    actionConfig: Array<ActionConfig>;
 };
 
-export type ActionConfig = ActionProps & {
-    title: string;
-    confirmContext: string;
-    description: string;
-    icon: JSX.Element;
-};
-
-export const actionConfig: Array<ActionConfig> = [
-    {
-        action: 'refund',
-        title: __('Refund donation', 'give'),
-        confirmContext: __('Yes, refund', 'give'),
-        description: __('Do you want to refund this donation?', 'give'),
-        icon: <AlertIcon />,
-    },
-    {
-        action: 'download',
-        title: __('Download receipt', 'give'),
-        confirmContext: __('Download', 'give'),
-        description: __('Do you want to download this receipt?', 'give'),
-        icon: <AlertIcon />,
-    },
-    {
-        action: 'resend',
-        title: __('Resend receipt', 'give'),
-        confirmContext: __('Yes,  resend', 'give'),
-        description: __('Do you want to resend this receipt?', 'give'),
-        icon: <AlertIcon />,
-    },
-    {
-        action: 'delete',
-        title: __('Delete donation', 'give'),
-        confirmContext: __('Yes, delete', 'give'),
-        description: __('Do you want to delete this donation?', 'give'),
-        icon: <WarningIcon />,
-    },
-];
-
-export type ActionMenuProps = {};
-
-export default function ActionMenu({}: ActionMenuProps) {
+export default function ActionMenu({actionConfig}: ActionMenuProps) {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [currentAction, setCurrentAction] = useState<any>(null);
 
@@ -77,7 +32,7 @@ export default function ActionMenu({}: ActionMenuProps) {
     return (
         <Fragment>
             <ul className={styles.navigationMenu}>
-                {actionConfig.map(({action, title, confirmContext, description, icon}) => {
+                {actionConfig?.map(({action, title, confirmContext, description, icon}) => {
                     return (
                         <li key={action}>
                             <button onClick={() => openActionModal({action, title, confirmContext, description, icon})}>
@@ -108,7 +63,16 @@ export default function ActionMenu({}: ActionMenuProps) {
     );
 }
 
-export function ActionDialog({action, title, icon, description, confirmContext, confirm, cancel}) {
+/**
+ *
+ * @unreleased
+ */
+export type ActionDialogProps = ActionConfig & {
+    confirm: () => void;
+    cancel: () => void;
+};
+
+export function ActionDialog({action, title, icon, description, confirmContext, confirm, cancel}: ActionDialogProps) {
     const variant = action === 'delete' ? 'danger' : 'primary';
 
     return (

@@ -8,6 +8,7 @@ import {Form} from '@givewp/components/AdminUI/FormElements';
 import {joiResolver} from '@hookform/resolvers/joi';
 import {usePostRequest} from '@givewp/components/AdminUI/api';
 import {format} from 'date-fns';
+import {ActionConfig} from '../../../../Donations/resources/DonationDetails/app/utilities/actions';
 
 /**
  *
@@ -30,7 +31,7 @@ export interface FormPageProps {
     validationSchema;
     children: React.ReactNode;
     pageInformation: PageInformation;
-    actionConfig: Array<{title: string; action: any}>;
+    actionConfig: Array<ActionConfig>;
 }
 
 export default function FormPage({
@@ -83,6 +84,7 @@ export default function FormPage({
             <FormNavigation
                 pageInformation={pageInformation}
                 onSubmit={handleSubmit(handleSubmitRequest)}
+                actionConfig={actionConfig}
                 isDirty={isDirty}
             />
             <Toast

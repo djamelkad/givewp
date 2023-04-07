@@ -9,6 +9,7 @@ import DownArrowIcon from '@givewp/components/AdminUI/Icons/DownArrowIcon';
 
 import {PageInformation} from '@givewp/components/AdminUI/FormPage';
 import styles from './style.module.scss';
+import {ActionConfig} from '../../../../Donations/resources/DonationDetails/app/utilities/actions';
 
 /**
  *
@@ -19,9 +20,10 @@ export type FormNavigationProps = {
     onSubmit: () => void;
     pageInformation: PageInformation;
     isDirty: boolean;
+    actionConfig: Array<ActionConfig>;
 };
 
-export default function FormNavigation({onSubmit, isDirty, pageInformation}: FormNavigationProps) {
+export default function FormNavigation({onSubmit, isDirty, pageInformation, actionConfig}: FormNavigationProps) {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
     const {description, id, title} = pageInformation;
@@ -35,7 +37,7 @@ export default function FormNavigation({onSubmit, isDirty, pageInformation}: For
             <TitleNavigation title={title} />
             <div className={styles.actions}>
                 <PageDescription description={description} id={id} />
-                <MoreActions isOpen={isMenuOpen} openMenu={toggleMenu} />
+                <MoreActions actionConfig={actionConfig} isOpen={isMenuOpen} openMenu={toggleMenu} />
                 <SaveFormChanges onSubmit={onSubmit} isDirty={isDirty} />
             </div>
         </header>
@@ -86,16 +88,17 @@ export function PageDescription({description, id}: PageDescriptionProps) {
 export type MoreActionsProps = {
     isOpen: boolean;
     openMenu: () => void;
+    actionConfig: Array<ActionConfig>;
 };
 
-function MoreActions({openMenu, isOpen}: MoreActionsProps) {
+function MoreActions({openMenu, isOpen, actionConfig}: MoreActionsProps) {
     return (
         <div>
             <Button onClick={openMenu} variant={'secondary'} size={'small'} type={'button'} disabled={false}>
                 {__('More Actions', 'give')}
                 <DownArrowIcon color={'#2271b1'} />
             </Button>
-            {isOpen && <ActionMenu />}
+            {isOpen && <ActionMenu actionConfig={actionConfig} />}
         </div>
     );
 }

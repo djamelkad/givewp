@@ -8,9 +8,8 @@ import FormTemplate from './components/FormTemplate';
 import {validationSchema} from './config/schema';
 import {apiNonce, endpoint} from '../../window';
 import {pageInformation} from './config/pageInformation';
-
+import {actionConfig} from './utilities/actions';
 import {defaultFormValues} from './utilities/defaultFormValues';
-import {actions} from './utilities/actions';
 
 import './css/style.scss';
 
@@ -27,7 +26,7 @@ export default function App() {
             defaultValues={defaultFormValues}
             validationSchema={validationSchema}
             pageInformation={pageInformation}
-            actionConfig={actions}
+            actionConfig={actionConfig}
             apiNonce={apiNonce}
             successMessage={__('Donation details have been updated successfully', 'give')}
             errorMessage={__(
