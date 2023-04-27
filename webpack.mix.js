@@ -67,6 +67,10 @@ mix.setPublicPath('assets/dist')
    .copyDirectory('assets/src/fonts', 'assets/dist/fonts');
 
 mix.webpackConfig({
+    externals: {
+        react: 'React',
+        'react-dom': 'ReactDOM'
+    },
     resolve: {
         alias: {
             '@givewp/components': path.resolve(__dirname, 'src/Views/Components/'),
