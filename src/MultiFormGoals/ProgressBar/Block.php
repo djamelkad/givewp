@@ -102,9 +102,11 @@ class Block
         wp_localize_script(
             'give-blocks-js',
             'giveProgressBarThemeSupport',
+            ['wp-i18n','wp-element'],
             [
                 'editorColorPalette' => $editorColorPalette ? array_shift($editorColorPalette) : $defaultColorPalette,
             ]
         );
+
     }
 }
